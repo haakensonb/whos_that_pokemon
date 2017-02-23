@@ -1057,4 +1057,3 @@ var data = [
         "cry": "./poke_data/poke_cries/151.wav"
     }
 ]
-export default data;
