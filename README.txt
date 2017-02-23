@@ -2,6 +2,7 @@ This is a recreation of the classic pokemon mini game "Who's That Pokemon" in wh
 Todo:
     fix duplicate choices
     add streak counter which is reset on wrong answer
+    add option to turn off sound
     clean up and refactor
     add style
     fix regex for data.descriptions
