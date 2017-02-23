@@ -3,6 +3,7 @@ Todo:
     fix duplicate choices
     add streak counter which is reset on wrong answer
     add option to turn off sound
+    Stop it from repeating same pokemon
     clean up and refactor
     add style
     fix regex for data.descriptions
