@@ -8,12 +8,23 @@ var app = {
     currentPokemon: null,
     shuffledChoices: null,
     round: 0,
+    lastTenPokemon: [],
     getRandomPokemon: function() {
         let length = data.length;
         return Math.floor(Math.random() * length);
     },
+    //pulls a random pokemon to be current and maintains list of last ten pokemon. If current pokemon is one of the last ten it changes to another random pokemon so it doesn't repeat as often
     getCurrentPokemon: function() {
+        if (this.currentPokemon !== null){
+            this.lastTenPokemon.push(this.currentPokemon);
+            if(this.lastTenPokemon.length === 11){
+                this.lastTenPokemon.shift();
+            }
+        }
         this.currentPokemon = data[this.getRandomPokemon()];
+        if (this.lastTenPokemon.indexOf(this.currentPokemon) !== -1){
+            this.currentPokemon = data[this.getRandomPokemon()];
+        }
     },
     getOtherPokemon: function() {
         let tempArray = [];
@@ -21,6 +32,7 @@ var app = {
             tempArray.push(data[this.getRandomPokemon()]);
         }
         tempArray.push(this.currentPokemon);
+        tempArray = this.removeDuplicates(tempArray)
         this.shuffledChoices = this.shuffle(tempArray);
     },
     //Fisher-Yates Shuffle
@@ -41,7 +53,16 @@ var app = {
         }
 
         return array;
-},
+},  //not really a good solution but should reduce odds of getting duplicate choices
+    removeDuplicates: function(array) {
+        var filtered = array.filter(function(item, index){
+            return index === array.indexOf(item);
+        });
+        for (let i = filtered.length; i < 4; i++){
+            filtered.push(data[this.getRandomPokemon()]);
+        }
+        return filtered;
+    },
     newRound: function() {
         var roundEl = document.getElementById('round');
         this.round += 1;
