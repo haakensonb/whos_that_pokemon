@@ -3,33 +3,27 @@ var choices = document.querySelectorAll('.choice');
 var infoEl = document.getElementById('info-text');
 var hintEl = document.getElementById("hint-area");
 
+//clonedData is to be mutated to keep track of used pokemon while data is simply for choices
+var clonedData = data.slice(0);
 
 var app = {
     currentPokemon: null,
     shuffledChoices: null,
     round: 0,
-    lastTenPokemon: [],
-    getRandomPokemon: function() {
-        let length = data.length;
+    getRandomPokemon: function(array) {
+        let length = array.length;
         return Math.floor(Math.random() * length);
     },
-    //pulls a random pokemon to be current and maintains list of last ten pokemon. If current pokemon is one of the last ten it changes to another random pokemon so it doesn't repeat as often
+    
     getCurrentPokemon: function() {
-        if (this.currentPokemon !== null){
-            this.lastTenPokemon.push(this.currentPokemon);
-            if(this.lastTenPokemon.length === 11){
-                this.lastTenPokemon.shift();
-            }
-        }
-        this.currentPokemon = data[this.getRandomPokemon()];
-        if (this.lastTenPokemon.indexOf(this.currentPokemon) !== -1){
-            this.currentPokemon = data[this.getRandomPokemon()];
-        }
+        //splice returns array so need to add [0]
+        let usedPoke = clonedData.splice(this.getRandomPokemon(clonedData),1)[0];
+        this.currentPokemon = usedPoke;
     },
     getOtherPokemon: function() {
         let tempArray = [];
         for(let i = 0; i <= 2; i++){
-            tempArray.push(data[this.getRandomPokemon()]);
+            tempArray.push(data[this.getRandomPokemon(data)]);
         }
         tempArray.push(this.currentPokemon);
         tempArray = this.removeDuplicates(tempArray)
@@ -59,7 +53,7 @@ var app = {
             return index === array.indexOf(item);
         });
         for (let i = filtered.length; i < 4; i++){
-            filtered.push(data[this.getRandomPokemon()]);
+            filtered.push(data[this.getRandomPokemon(data)]);
         }
         return filtered;
     },
@@ -76,6 +70,7 @@ var app = {
     },
     makeButtonChoices: function() {
         for (let i = 0; i < this.shuffledChoices.length; i++){
+            console.log(this.shuffledChoices[i].name);
             choices[i].innerHTML = this.shuffledChoices[i].name;
         }
     },
@@ -100,8 +95,14 @@ var app = {
             infoEl.innerHTML = "Correct!";
             imgEl.classList.remove('silhouette');
             var audio = new Audio(this.currentPokemon.cry);
-            audio.volume = 0.3;
+            audio.volume = 0.05;
             audio.play();
+
+            //if player gets pokemon correct and that is the only pokemon left, they win
+            if (clonedData.length === 1){
+                return this.win();
+            }
+
             var countdown = 3;
             var myInterval = setInterval(function(){
                 if (countdown === 1){
@@ -118,6 +119,9 @@ var app = {
         else {
             infoEl.innerHTML = "Sorry that's wrong";
         }
+    },
+    win: function() {
+            alert("WOW you win! You know all the first gen pokemon! Refresh to play again.")
     },
 };
 

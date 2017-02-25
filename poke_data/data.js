@@ -1056,4 +1056,4 @@ var data = [
         "description": "So rare that it is still said to be a mirage by many experts. Only a few people have seen it worldwide.",
         "cry": "./poke_data/poke_cries/151.wav"
     }
-]
+];
