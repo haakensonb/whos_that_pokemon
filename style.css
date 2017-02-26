@@ -1,3 +1,11 @@
+.container {
+    width: 500px;
+    margin: auto;
+    text-align: center;
+}
+h1 {
+    
+}
 .silhouette {
     filter: contrast(0%) brightness(50%);
 }
