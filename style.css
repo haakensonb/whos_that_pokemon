@@ -1,3 +1,6 @@
 .silhouette {
     filter: contrast(0%) brightness(50%);
 }
+#volume {
+    font-size: 36px;
+}

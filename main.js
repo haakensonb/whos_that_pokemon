@@ -4,6 +4,7 @@ var infoEl = document.getElementById('info-text');
 var hintEl = document.getElementById("hint-area");
 var roundEl = document.getElementById('round');
 var streakEl = document.getElementById('streak');
+var volumeEl = document.getElementById('volume');
 
 //clonedData is to be mutated to keep track of used pokemon while data is simply for choices
 var clonedData = data.slice(0);
@@ -13,6 +14,7 @@ var app = {
     shuffledChoices: null,
     round: 0,
     streak: 0,
+    sound: true,
     getRandomPokemon: function(array) {
         let length = array.length;
         return Math.floor(Math.random() * length);
@@ -95,9 +97,7 @@ var app = {
         if (event.target.innerHTML === this.currentPokemon.name){
             infoEl.innerHTML = "Correct!";
             imgEl.classList.remove('silhouette');
-            var audio = new Audio(this.currentPokemon.cry);
-            audio.volume = 0.05;
-            audio.play();
+            this.playSound();
 
             //if player gets pokemon correct and that is the only pokemon left, they win
             if (clonedData.length === 1){
@@ -130,10 +130,31 @@ var app = {
         roundEl.innerHTML = 'Round: ' + app.round;
         infoEl.innerHTML = "WOW you won with a final streak of " + this.streak + "! You must know all the first gen pokemon! Refresh to play again.";
     },
+    addVolumeHandler: function() {
+        volumeEl.addEventListener('click', function(event){
+            if (event.target.className === 'icon-volume-up'){
+                app.sound = false;
+                event.target.classList.remove('icon-volume-up');
+                event.target.classList.add('icon-volume-off');
+            } else {
+                app.sound = true;
+                event.target.classList.remove('icon-volume-off');
+                event.target.classList.add('icon-volume-up');
+            }
+        });
+    },
+    playSound: function() {
+        if (this.sound){
+            var audio = new Audio(this.currentPokemon.cry);
+            audio.volume = 0.05;
+            audio.play();
+        }
+    },
 };
 
 document.addEventListener('DOMContentLoaded', function() {
     app.newRound();
     app.addChoiceEvents();
     app.addHintEvent();
+    app.addVolumeHandler();
 })
