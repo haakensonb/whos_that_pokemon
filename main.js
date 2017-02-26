@@ -2,6 +2,8 @@ var imgEl = document.getElementById('poke-img');
 var choices = document.querySelectorAll('.choice');
 var infoEl = document.getElementById('info-text');
 var hintEl = document.getElementById("hint-area");
+var roundEl = document.getElementById('round');
+var streakEl = document.getElementById('streak');
 
 //clonedData is to be mutated to keep track of used pokemon while data is simply for choices
 var clonedData = data.slice(0);
@@ -10,6 +12,7 @@ var app = {
     currentPokemon: null,
     shuffledChoices: null,
     round: 0,
+    streak: 0,
     getRandomPokemon: function(array) {
         let length = array.length;
         return Math.floor(Math.random() * length);
@@ -58,7 +61,6 @@ var app = {
         return filtered;
     },
     newRound: function() {
-        var roundEl = document.getElementById('round');
         this.round += 1;
         roundEl.innerHTML = 'Round: ' + app.round;
         hintEl.innerHTML = '';
@@ -70,7 +72,6 @@ var app = {
     },
     makeButtonChoices: function() {
         for (let i = 0; i < this.shuffledChoices.length; i++){
-            console.log(this.shuffledChoices[i].name);
             choices[i].innerHTML = this.shuffledChoices[i].name;
         }
     },
@@ -113,15 +114,21 @@ var app = {
             }, 1000);
             setTimeout(function(){
                 infoEl.innerHTML = '';
+                app.streak += 1;
+                streakEl.innerHTML = 'Streak: ' + app.streak;
                 app.newRound();
             }, 4000);
         }
         else {
-            infoEl.innerHTML = "Sorry that's wrong";
+            infoEl.innerHTML = "Sorry that's wrong. You lost your streak";
+            this.streak = 0;
+            streakEl.innerHTML = 'Streak: ' + this.streak;
         }
     },
     win: function() {
-            alert("WOW you win! You know all the first gen pokemon! Refresh to play again.")
+        this.round += 1;
+        roundEl.innerHTML = 'Round: ' + app.round;
+        infoEl.innerHTML = "WOW you won with a final streak of " + this.streak + "! You must know all the first gen pokemon! Refresh to play again.";
     },
 };
 

@@ -1,6 +1,5 @@
 This is a recreation of the classic pokemon mini game "Who's That Pokemon" in which the user is presented with a silhouette of a pokemon and must guess which one it is.
 Todo:
-    add streak counter which is reset on wrong answer
     add option to turn off sound
     clean up and refactor
     add style
