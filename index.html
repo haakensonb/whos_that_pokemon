@@ -6,25 +6,30 @@
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="fontello-0aaed351/css/fontello.css">
+    <link href="https://fonts.googleapis.com/css?family=Coiny" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
 </head>
 <body>
     <div class="container">
-        <h1>Who's That Pokemon?</h1>
+        <h1 class="poke-font-color">Who's That Pokemon?</h1>
         <div>
             <a id="volume"><i class="icon-volume-up"></i></a>
         </div>
         <div id="top">
-            <p id="round">Round: 0</p>
-            <p id="streak">Streak: 0</p>
+            <h3 id="round">Round: 0</h3>
+            <h3 id="streak">Streak: 0</h3>
             <button id="hintButton">Need a hint?</button>
-            <p id="hint-area"></p>
+            <h3 id="hint-area"></h3>
         </div>
-        <img id="poke-img" class="silhouette" src="" alt="">
+        <div class="radial-background">
+            <img id="poke-img" class="silhouette" src="" alt="">
+        </div>
         <button class="choice"></button>
         <button class="choice"></button>
         <button class="choice"></button>
         <button class="choice"></button>
-        <p id="info-text"></p>
+        <h3 id="info-text"></h3>
     </div>
     <script src="./poke_data/data.js"></script>
     <script src="main.js"></script>

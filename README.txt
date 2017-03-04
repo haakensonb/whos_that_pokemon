@@ -3,3 +3,4 @@ Todo:
     clean up and refactor
     add style
     fix regex for data.descriptions
+    make responsive?
