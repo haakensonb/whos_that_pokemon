@@ -5,6 +5,7 @@ var hintEl = document.getElementById("hint-area");
 var roundEl = document.getElementById('round');
 var streakEl = document.getElementById('streak');
 var volumeEl = document.getElementById('volume');
+var correctClickCount = 0;
 
 //clonedData is to be mutated to keep track of used pokemon while data is simply for choices
 var clonedData = data.slice(0);
@@ -63,6 +64,7 @@ var app = {
         return filtered;
     },
     newRound: function() {
+        correctClickCount = 0;
         this.round += 1;
         roundEl.innerHTML = 'Round: ' + app.round;
         hintEl.innerHTML = '';
@@ -94,10 +96,16 @@ var app = {
         hintEl.innerHTML = this.currentPokemon.description + '...';
     },
     checkClick: function(event) {
+        //to prevent spamming correct answer
+        if (correctClickCount !== 0){
+            return
+        }
+
         if (event.target.innerHTML === this.currentPokemon.name){
             infoEl.innerHTML = "Correct!";
             imgEl.classList.remove('silhouette');
             this.playSound();
+            correctClickCount += 1;
 
             //if player gets pokemon correct and that is the only pokemon left, they win
             if (clonedData.length === 1){
@@ -146,7 +154,7 @@ var app = {
     playSound: function() {
         if (this.sound){
             var audio = new Audio(this.currentPokemon.cry);
-            audio.volume = 0.05;
+            audio.volume = 0.25;
             audio.play();
         }
     },
