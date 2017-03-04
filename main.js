@@ -1,11 +1,11 @@
-var imgEl = document.getElementById('poke-img');
-var choices = document.querySelectorAll('.choice');
-var infoEl = document.getElementById('info-text');
-var hintEl = document.getElementById("hint-area");
-var roundEl = document.getElementById('round');
-var streakEl = document.getElementById('streak');
-var volumeEl = document.getElementById('volume');
-var correctClickCount = 0;
+var imgEl = document.getElementById('poke-img'),
+    choices = document.querySelectorAll('.choice'),
+    infoEl = document.getElementById('info-text'),
+    hintEl = document.getElementById("hint-area"),
+    roundEl = document.getElementById('round'),
+    streakEl = document.getElementById('streak'),
+    volumeEl = document.getElementById('volume'),
+    correctClickCount = 0;
 
 //clonedData is to be mutated to keep track of used pokemon while data is simply for choices
 var clonedData = data.slice(0);

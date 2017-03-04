@@ -2,17 +2,21 @@ html, body {
     width: 100%;
     min-height: 100%;
 }
+
 .container {
     width: 500px;
     margin: auto;
     text-align: center;
 }
+
 h1 {
     font-family: 'Coiny', cursive;
 }
+
 .silhouette {
     filter: contrast(0%) brightness(50%);
 }
+
 #volume {
     font-size: 36px;
     cursor: pointer;
